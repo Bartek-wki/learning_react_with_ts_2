@@ -1,30 +1,19 @@
-import { useRef } from "react";
-import Button from "./components/Button";
-import Button_2 from "./components/Button_2";
-import Container from "./components/Container";
-import Input from "./components/Input";
-import Form, { type FormHandle } from "./components/Form";
+import AddTimer from './components/AddTimer.tsx';
+import Header from './components/Header.tsx';
+import Timers from './components/Timers.tsx';
+import TimersContextProvider from './store/timers-context.tsx';
 
 function App() {
-  const currentForm = useRef<FormHandle>(null)
-
-  function handleSave(data: unknown) {
-    const extractData = data as {name: string, age: string};
-    console.log(extractData)
-    currentForm.current?.clear()
-  }
-
   return (
-    <main>
-      <Form onSave={handleSave} ref={currentForm}>
-        <Input type="text" id="name" label="Name" />
-        <Input type="number" id="age" label="Age" />
-        <p>
-          <Button_2>Save</Button_2>
-        </p>
-      </Form>
-    </main>
-  )
+    <TimersContextProvider>
+      <Header />
+      <main>
+        <AddTimer />
+        <Timers />
+      </main>
+    </TimersContextProvider>
+
+  );
 }
 
 export default App;
